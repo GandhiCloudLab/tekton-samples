@@ -1,0 +1,10 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: pipeline-hello
+  namespace: tekton-hello-ns
+spec:
+  tasks:
+    - name: task-hello-instance
+      taskRef:
+        name: task-hello

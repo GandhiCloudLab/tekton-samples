@@ -1,0 +1,18 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: task-hello
+  namespace: tekton-hello-ns
+spec:
+  inputs:
+  steps:
+    - name: step-hello
+      image: ubuntu
+      command:
+        - /bin/bash
+      args:
+        - '-c'
+        - >
+          echo "Hello tekton ."
+          echo "Hello tekton .."
+          echo "Hello tekton ..."
