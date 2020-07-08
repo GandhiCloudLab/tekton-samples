@@ -1,0 +1,16 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineRun
+metadata:
+  name: pipeline-run-maven-51
+  namespace: tekton-maven-sample2
+spec:
+  pipelineRef:
+    name: pipeline-maven
+  resources:
+    - name: app-git
+      resourceRef:
+        name: app-git
+  workspaces:
+    - name: local-maven-repo
+      persistentVolumeClaim:
+        claimName: pvc-maven

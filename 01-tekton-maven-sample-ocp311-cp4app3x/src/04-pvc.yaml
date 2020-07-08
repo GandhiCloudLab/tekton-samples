@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-maven
+  namespace: tekton-maven-sample2
+spec:
+  resources:
+    requests:
+      storage: 5Gi
+  volumeMode: Filesystem
+  storageClassName: test
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete

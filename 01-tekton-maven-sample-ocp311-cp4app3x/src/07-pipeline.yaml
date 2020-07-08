@@ -1,0 +1,55 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: pipeline-maven
+  namespace: tekton-maven-sample2
+spec:
+  workspaces:
+    - name: local-maven-repo
+  resources:
+    - name: app-git
+      type: git
+  tasks:
+    - name: build
+      taskRef:
+        name: task-mvn
+      params:
+        - name: GOALS
+          value: package
+      resources:
+        inputs:
+          - name: source
+            resource: app-git
+      workspaces:
+        - name: maven-repo
+          workspace: local-maven-repo
+    - name: int-test
+      taskRef:
+        name: task-mvn
+      params:
+        - name: GOALS
+          value: verify
+      resources:
+        inputs:
+          - name: source
+            resource: app-git
+      runAfter:
+        - build
+      workspaces:
+        - name: maven-repo
+          workspace: local-maven-repo
+    - name: gen-report
+      taskRef:
+        name: task-mvn
+      params:
+        - name: GOALS
+          value: site
+      resources:
+        inputs:
+          - name: source
+            resource: app-git
+      runAfter:
+        - int-test
+      workspaces:
+        - name: maven-repo
+          workspace: local-maven-repo

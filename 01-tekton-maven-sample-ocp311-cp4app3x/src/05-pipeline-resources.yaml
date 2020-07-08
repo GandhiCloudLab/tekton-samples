@@ -1,0 +1,13 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: app-git
+  namespace: tekton-maven-sample2
+spec:
+  type: git
+  params:
+    - name: url
+      # value: https://github.com/spring-projects/spring-petclinic
+      value: https://github.com/GandhiCloudLab/springboot-cart
+    - name: revision
+      value: master
